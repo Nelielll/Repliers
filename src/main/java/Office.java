@@ -1,5 +1,3 @@
-package model;
-
 public class Office {
     public int x;
     public int y;
