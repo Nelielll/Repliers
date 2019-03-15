@@ -1,3 +1,5 @@
+import model.Office;
+
 import java.io.*;
 import java.util.Scanner;
 
@@ -25,28 +27,47 @@ public class Main {
             int[] y = new int[nrCustomerHeadquarters];
             int[] rewards = new int[nrCustomerHeadquarters];
 
+            Office[] offices = new Office[nrCustomerHeadquarters];
 
+            char[][] map = new char[height][width];
             int i = 0;
             // Reading Customer HeadQuarters
             while (sc.hasNextLine() && i < nrCustomerHeadquarters) {
                 line = sc.nextLine();
                 numbers = line.split(" ");
-                x[i] = Integer.parseInt(numbers[0]);
-                y[i] = Integer.parseInt(numbers[1]);
-                rewards[i] = Integer.parseInt(numbers[2]);
-            }
-            // Reading Reply Offices
-            while (sc.hasNextLine() && i < nrCustomerHeadquarters) {
-                line = sc.nextLine();
-                numbers = line.split(" ");
-                x[i] = Integer.parseInt(numbers[0]);
-                y[i] = Integer.parseInt(numbers[1]);
-                rewards[i] = Integer.parseInt(numbers[2]);
+
+                offices[i] = new Office(Integer.parseInt(numbers[0]),
+                        Integer.parseInt(numbers[1]),
+                        Integer.parseInt(numbers[2]));
+                i++;
             }
 
+            i = 0;
+            // Reading Reply Offices
+            while (sc.hasNextLine() && i < height) {
+                line = sc.nextLine();
+
+                char[] chars = line.toCharArray();
+
+                for (int j = 0; j < chars.length; j++)
+                    map[i][j] = chars[j];
+
+                i++;
+            }
+
+            System.out.println(width + " " + height + " " + nrCustomerHeadquarters + " " + maxReplyOffices);
+
+            for (int s = 0; s < nrCustomerHeadquarters; s++)
+                System.out.println(offices[s].x + " " + offices[s].y + " " + offices[s].rewards);
+
+            for (int k = 0; k < height; k++) {
+                for (int p = 0; p < width; p++)
+                    System.out.print(map[k][p]);
+                System.out.println();
+            }
+
+
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
             e.printStackTrace();
         }
     }
